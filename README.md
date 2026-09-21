@@ -6,6 +6,8 @@
 
 核心运行不要求 Dashboard、embedding provider、Remember-Me、HTTP 或任何特定消息桥。最小路径是本地 stdio MCP 服务；其余能力按需启用。
 
+给 Claude、其他 LLM 或 MCP Agent 使用的完整操作手册见 docs/ABIDE_GUIDE.md，其中包含工具用法、参数边界、安全规则和当前已知限制。
+
 ## 目录
 
 - [长相守是什么](#长相守是什么)
