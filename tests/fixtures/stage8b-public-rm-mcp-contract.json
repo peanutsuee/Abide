@@ -1,0 +1,781 @@
+{
+  "profile": "public-rm",
+  "redactions": [
+    "token",
+    "signed_url",
+    "complete_hash",
+    "base64",
+    "local_path",
+    "user_data",
+    "real_timestamp"
+  ],
+  "safeOutputShapes": {
+    "rm_asset_download_link": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "asset_id": "<id>",
+        "download_url": "<signed_url>",
+        "expires_at": "<timestamp>",
+        "max_successful_gets": "<integer>",
+        "ok": true
+      }
+    },
+    "rm_asset_get": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "asset": "<nested_asset>",
+        "ok": true
+      }
+    },
+    "rm_asset_inspect": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "content": [
+          {
+            "text": "<safe_text>",
+            "type": "text"
+          },
+          {
+            "data": "<base64>",
+            "mimeType": "<mime>",
+            "type": "image"
+          }
+        ],
+        "structuredContent": {
+          "asset": "<nested_asset>",
+          "ok": true
+        }
+      }
+    },
+    "rm_asset_reindex_embeddings": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "enabled": "<boolean>",
+        "failed": "<integer>",
+        "indexed": "<integer>",
+        "model_id": "<model>",
+        "ok": true,
+        "selected": "<integer>"
+      }
+    },
+    "rm_asset_search": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "items": "<asset_list>",
+        "limit": "<integer>",
+        "offset": "<integer>",
+        "ok": true,
+        "total": "<integer>"
+      }
+    },
+    "rm_asset_update_metadata": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "asset": "<nested_asset>",
+        "ok": true
+      }
+    },
+    "rm_asset_upload_link": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "expires_at": "<timestamp>",
+        "max_bytes": "<integer>",
+        "ok": true,
+        "upload_id": "<id>",
+        "upload_url": "<signed_url>"
+      }
+    },
+    "rm_asset_upload_status": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "asset": "<nested_asset>",
+        "deduplicated": "<boolean>",
+        "ok": true,
+        "status": "<state>",
+        "upload_id": "<id>"
+      }
+    },
+    "rm_asset_view": {
+      "error": {
+        "content": [
+          {
+            "text": "<safe_error_json>",
+            "type": "text"
+          }
+        ],
+        "isError": true,
+        "structuredContent": {
+          "error": {
+            "code": "<error_code>",
+            "message": "<safe_message>"
+          },
+          "ok": false
+        }
+      },
+      "success": {
+        "_meta": {
+          "remember_me": "<viewer_payload_without_bytes>"
+        },
+        "content": [
+          {
+            "text": "<safe_text>",
+            "type": "text"
+          }
+        ],
+        "structuredContent": {
+          "asset": "<nested_asset>",
+          "ok": true
+        }
+      }
+    }
+  },
+  "tools": [
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "defaults": {
+        "filename": "",
+        "mime_type": "application/octet-stream"
+      },
+      "description": "Create a single-use five-minute URL for uploading one PNG or JPEG to Remember-Me.",
+      "inputSchema": {
+        "properties": {
+          "expected_bytes": {
+            "maximum": 10485760,
+            "minimum": 1,
+            "title": "Expected Bytes",
+            "type": "integer"
+          },
+          "filename": {
+            "default": "",
+            "title": "Filename",
+            "type": "string"
+          },
+          "mime_type": {
+            "default": "application/octet-stream",
+            "title": "Mime Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_bytes"
+        ],
+        "title": "rm_asset_upload_linkArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_upload_link",
+      "optional": [
+        "filename",
+        "mime_type"
+      ],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "expected_bytes"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "defaults": {},
+      "description": "Read the status of a previously created upload ticket.",
+      "inputSchema": {
+        "properties": {
+          "upload_id": {
+            "title": "Upload Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "upload_id"
+        ],
+        "title": "rm_asset_upload_statusArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_upload_status",
+      "optional": [],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "upload_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "defaults": {},
+      "description": "Get safe metadata for one Remember-Me image asset.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_getArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_get",
+      "optional": [],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": false
+      },
+      "defaults": {
+        "description": null,
+        "tags": null,
+        "title": null
+      },
+      "description": "Replace selected title, description, or tag metadata without changing image bytes.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Description"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tags"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Title"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_update_metadataArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_update_metadata",
+      "optional": [
+        "title",
+        "description",
+        "tags"
+      ],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": false
+      },
+      "defaults": {
+        "asset_id": "",
+        "limit": 100
+      },
+      "description": "Rebuild a bounded batch of optional vector embeddings without changing image files or user metadata.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "default": "",
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "limit": {
+            "default": 100,
+            "maximum": 500,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "rm_asset_reindex_embeddingsArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_reindex_embeddings",
+      "optional": [
+        "asset_id",
+        "limit"
+      ],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": []
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "defaults": {
+        "created_from": "",
+        "created_to": "",
+        "kind": "",
+        "limit": 20,
+        "mime_type": "",
+        "offset": 0,
+        "query": "",
+        "tags": null
+      },
+      "description": "Search Remember-Me image metadata with stable keyword and filter semantics.",
+      "inputSchema": {
+        "properties": {
+          "created_from": {
+            "default": "",
+            "title": "Created From",
+            "type": "string"
+          },
+          "created_to": {
+            "default": "",
+            "title": "Created To",
+            "type": "string"
+          },
+          "kind": {
+            "default": "",
+            "title": "Kind",
+            "type": "string"
+          },
+          "limit": {
+            "default": 20,
+            "maximum": 50,
+            "minimum": 1,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "mime_type": {
+            "default": "",
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "offset": {
+            "default": 0,
+            "minimum": 0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "query": {
+            "default": "",
+            "title": "Query",
+            "type": "string"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tags"
+          }
+        },
+        "title": "rm_asset_searchArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_search",
+      "optional": [
+        "query",
+        "tags",
+        "kind",
+        "mime_type",
+        "created_from",
+        "created_to",
+        "limit",
+        "offset"
+      ],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": []
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true,
+        "readOnlyHint": false
+      },
+      "defaults": {},
+      "description": "Create a five-minute link for up to three downloads of the privacy-cleaned stored image.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_download_linkArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_download_link",
+      "optional": [],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://remember-me/asset-viewer.html"
+        }
+      },
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "defaults": {},
+      "description": "Open an original Remember-Me MCP App viewer for one cleaned image, with a text fallback.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_viewArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_view",
+      "optional": [],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false,
+        "readOnlyHint": true
+      },
+      "defaults": {},
+      "description": "Return one verified privacy-cleaned PNG or JPEG as MCP ImageContent.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_inspectArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_inspect",
+      "optional": [],
+      "outputSchema": {
+        "additionalProperties": true,
+        "properties": {
+          "ok": {
+            "title": "Ok",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "ok"
+        ],
+        "title": "McpToolOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    }
+  ]
+}

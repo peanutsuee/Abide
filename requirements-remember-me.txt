@@ -1,0 +1,4 @@
+-r requirements.txt
+
+# Optional Remember-Me integration pinned to an immutable public source archive.
+remember-me @ https://github.com/peanutsuee/Remember-Me/releases/download/v0.1.0-dev.7-public.1/Remember-Me-0.1.0.dev7-public.1-a00ea991442d7581a3856b178525a8e77da833fe.tar.gz#sha256=80a0b334f08db19c95c053537dec484be645f29fcf67898037e6641224012214

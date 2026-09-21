@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>Remember-Me asset viewer</title>
+  <link rel="stylesheet" href="/src/viewer.css">
+</head>
+<body>
+  <main>
+    <p id="status" role="status">Loading Remember-Me image&hellip;</p>
+    <figure id="viewer" hidden>
+      <img id="image" alt="">
+      <figcaption>
+        <h1 id="title"></h1>
+        <dl>
+          <dt>Filename</dt><dd id="filename"></dd>
+          <dt>Dimensions</dt><dd id="dimensions"></dd>
+          <dt>MIME type</dt><dd id="mime"></dd>
+          <dt>Tags</dt><dd id="tags"></dd>
+        </dl>
+      </figcaption>
+    </figure>
+  </main>
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

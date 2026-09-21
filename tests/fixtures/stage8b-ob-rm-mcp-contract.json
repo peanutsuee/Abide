@@ -1,0 +1,582 @@
+{
+  "profile": "ob",
+  "redactions": [
+    "token",
+    "signed_url",
+    "complete_hash",
+    "base64",
+    "local_path",
+    "user_data",
+    "real_timestamp"
+  ],
+  "safeOutputShapes": {
+    "rm_asset_download_link": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "asset_id": "<id>",
+        "download_path": "<path>",
+        "download_url": "<signed_url>",
+        "ok": true
+      }
+    },
+    "rm_asset_get": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "<asset_metadata>": "<fields>",
+        "ok": true
+      }
+    },
+    "rm_asset_inspect": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "content": [
+          {
+            "text": "<safe_text>",
+            "type": "text"
+          },
+          {
+            "data": "<base64>",
+            "mimeType": "<mime>",
+            "type": "image"
+          }
+        ],
+        "structuredContent": "<flat_asset_view>"
+      }
+    },
+    "rm_asset_reindex_embeddings": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "failed": "<integer>",
+        "indexed": "<integer>",
+        "ok": true,
+        "scanned": "<integer>",
+        "skipped": "<integer>"
+      }
+    },
+    "rm_asset_search": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "limit": "<integer>",
+        "offset": "<integer>",
+        "ok": true,
+        "results": "<asset_list>",
+        "total": "<integer>"
+      }
+    },
+    "rm_asset_update_metadata": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "<asset_metadata>": "<fields>",
+        "ok": true
+      }
+    },
+    "rm_asset_upload_link": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "expires_in_seconds": "<integer>",
+        "ok": true,
+        "status_path": "<path>",
+        "upload_id": "<id>",
+        "upload_path": "<path>",
+        "upload_url": "<signed_url>"
+      }
+    },
+    "rm_asset_upload_status": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "asset_id": "<id>",
+        "ok": true,
+        "source_sha256": "<hash>",
+        "state": "<state>",
+        "upload_id": "<id>"
+      }
+    },
+    "rm_asset_view": {
+      "error": {
+        "error": "<error_code>",
+        "ok": false
+      },
+      "success": {
+        "_meta": {
+          "rememberMe": "<viewer_payload_without_bytes>"
+        },
+        "content": [
+          {
+            "text": "<safe_text>",
+            "type": "text"
+          }
+        ],
+        "structuredContent": "<flat_asset_view>"
+      }
+    }
+  },
+  "tools": [
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {
+        "filename": "",
+        "mime_type": "application/octet-stream"
+      },
+      "description": "Create a short-lived browser upload URL; the server computes the file hash.",
+      "inputSchema": {
+        "properties": {
+          "expected_bytes": {
+            "title": "Expected Bytes",
+            "type": "integer"
+          },
+          "filename": {
+            "default": "",
+            "title": "Filename",
+            "type": "string"
+          },
+          "mime_type": {
+            "default": "application/octet-stream",
+            "title": "Mime Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "expected_bytes"
+        ],
+        "title": "rm_asset_upload_linkArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_upload_link",
+      "optional": [
+        "filename",
+        "mime_type"
+      ],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_upload_linkOutput",
+        "type": "object"
+      },
+      "required": [
+        "expected_bytes"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {},
+      "description": "Return metadata-only status for a persistent Remember-Me asset upload.",
+      "inputSchema": {
+        "properties": {
+          "upload_id": {
+            "title": "Upload Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "upload_id"
+        ],
+        "title": "rm_asset_upload_statusArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_upload_status",
+      "optional": [],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_upload_statusOutput",
+        "type": "object"
+      },
+      "required": [
+        "upload_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {},
+      "description": "Return persistent asset metadata without file bytes or disk paths.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_getArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_get",
+      "optional": [],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_getOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {
+        "description": null,
+        "tags": null,
+        "title": null
+      },
+      "description": "Update persistent asset title, description, and tags without changing file bytes.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "description": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Description"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tags"
+          },
+          "title": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Title"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_update_metadataArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_update_metadata",
+      "optional": [
+        "title",
+        "description",
+        "tags"
+      ],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_update_metadataOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {
+        "created_from": "",
+        "created_to": "",
+        "kind": "",
+        "limit": 20,
+        "mime_type": "",
+        "offset": 0,
+        "query": "",
+        "tags": null
+      },
+      "description": "Search persistent assets through keyword and optional semantic channels.",
+      "inputSchema": {
+        "properties": {
+          "created_from": {
+            "default": "",
+            "title": "Created From",
+            "type": "string"
+          },
+          "created_to": {
+            "default": "",
+            "title": "Created To",
+            "type": "string"
+          },
+          "kind": {
+            "default": "",
+            "title": "Kind",
+            "type": "string"
+          },
+          "limit": {
+            "default": 20,
+            "title": "Limit",
+            "type": "integer"
+          },
+          "mime_type": {
+            "default": "",
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "offset": {
+            "default": 0,
+            "title": "Offset",
+            "type": "integer"
+          },
+          "query": {
+            "default": "",
+            "title": "Query",
+            "type": "string"
+          },
+          "tags": {
+            "anyOf": [
+              {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "default": null,
+            "title": "Tags"
+          }
+        },
+        "title": "rm_asset_searchArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_search",
+      "optional": [
+        "query",
+        "tags",
+        "kind",
+        "mime_type",
+        "created_from",
+        "created_to",
+        "limit",
+        "offset"
+      ],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_searchOutput",
+        "type": "object"
+      },
+      "required": []
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {
+        "asset_id": "",
+        "limit": 100
+      },
+      "description": "Backfill missing or stale Remember-Me asset embeddings without changing assets.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "default": "",
+            "title": "Asset Id",
+            "type": "string"
+          },
+          "limit": {
+            "default": 100,
+            "title": "Limit",
+            "type": "integer"
+          }
+        },
+        "title": "rm_asset_reindex_embeddingsArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_reindex_embeddings",
+      "optional": [
+        "asset_id",
+        "limit"
+      ],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_reindex_embeddingsOutput",
+        "type": "object"
+      },
+      "required": []
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {},
+      "description": "Create a five-minute signed download URL for one persistent asset.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_download_linkArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_download_link",
+      "optional": [],
+      "outputSchema": {
+        "properties": {
+          "result": {
+            "title": "Result",
+            "type": "string"
+          }
+        },
+        "required": [
+          "result"
+        ],
+        "title": "rm_asset_download_linkOutput",
+        "type": "object"
+      },
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {
+        "ui": {
+          "resourceUri": "ui://remember-me/asset-viewer.html"
+        },
+        "ui/resourceUri": "ui://remember-me/asset-viewer.html"
+      },
+      "annotations": {},
+      "defaults": {},
+      "description": "Display one cleaned Remember-Me image inline with a signed-link fallback.",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_viewArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_view",
+      "optional": [],
+      "outputSchema": {},
+      "required": [
+        "asset_id"
+      ]
+    },
+    {
+      "_meta": {},
+      "annotations": {},
+      "defaults": {},
+      "description": "Return the cleaned stored image for actual visual understanding.\n\n    Call rm_asset_inspect when the model needs to read the image or text inside it.\n    Call rm_asset_view when the goal is only to show the image to the user.\n    Never guess image content from metadata. This tool does not update metadata\n    or embeddings.\n    ",
+      "inputSchema": {
+        "properties": {
+          "asset_id": {
+            "title": "Asset Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "asset_id"
+        ],
+        "title": "rm_asset_inspectArguments",
+        "type": "object"
+      },
+      "name": "rm_asset_inspect",
+      "optional": [],
+      "outputSchema": {},
+      "required": [
+        "asset_id"
+      ]
+    }
+  ]
+}
