@@ -1,4 +1,4 @@
-# Abide Third-Party Notices — Release Candidate
+# Snows of Yesteryear Third-Party Notices — Release Candidate
 
 This release-candidate inventory includes only code proven to be retained from upstream or physically distributed in the audited asset viewer. Build-only dependencies and lockfile entries absent from the final bundle are intentionally excluded.
 

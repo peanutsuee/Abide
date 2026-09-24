@@ -1,18 +1,18 @@
 ---
-name: "abide-guide"
-description: "Abide 长期记忆系统操作手册：工具参数、合法值、不可逆操作与已知边界。供 Claude、LLM 或其他 MCP agent 在调用 Abide 工具前阅读。"
+name: "snows-of-yesteryear-guide"
+description: "Snows of Yesteryear 长期记忆系统操作手册：工具参数、合法值、不可逆操作与已知边界。供 Claude、LLM 或其他 MCP agent 在调用 Snows of Yesteryear 工具前阅读。"
 ---
 
-# Abide 操作手册
+# Snows of Yesteryear 操作手册
 
-本手册是自包含的 Abide 运行 contract。只写当前已上线、可由 MCP schema 与当前实现支持的行为；实验、未来设计、历史调试或仅代码审查结论不会被写成已生效能力。遇到 schema 与本手册冲突时，以当前 MCP schema 为准。
+本手册是自包含的 Snows of Yesteryear 运行 contract。只写当前已上线、可由 MCP schema 与当前实现支持的行为；实验、未来设计、历史调试或仅代码审查结论不会被写成已生效能力。遇到 schema 与本手册冲突时，以当前 MCP schema 为准。
 
 ## Release-candidate boundary
 
 - 当前默认 MCP surface 为 26 个工具；启用 diagnostic profile 后为 41 个。数量是当前版本观察值，schema 才是精确接口依据。
 - Minimal Mode 可在本地 stdio 下运行，不要求 Dashboard、Remember-Me、embedding API 或外部 provider。无 provider 配置时，`hold` 的自动分析可能降级为 fallback metadata。
-- Remember-Me 是可选外部 integration，不 vendored。仅资产/image 功能需要安装 `requirements-remember-me.txt` 并显式启用运行时边界。其兼容性为：Claude **SUPPORTED / TESTED**；ChatGPT **NOT CURRENTLY SUPPORTED**（曾有未诊断兼容问题）；其他 MCP/LLM clients **UNVERIFIED**。这不限制 Abide core 的客户端选择。
-- 私有 display alias 已从 Abide core 行为移除。memory content、query、tag 与 conflict-related text 不会按项目作者的固定私人映射被静默改写。
+- Remember-Me 是可选外部 integration，不 vendored。仅资产/image 功能需要安装 `requirements-remember-me.txt` 并显式启用运行时边界。其兼容性为：Claude **SUPPORTED / TESTED**；ChatGPT **NOT CURRENTLY SUPPORTED**（曾有未诊断兼容问题）；其他 MCP/LLM clients **UNVERIFIED**。这不限制 Snows of Yesteryear core 的客户端选择。
+- 私有 display alias 已从 Snows of Yesteryear core 行为移除。memory content、query、tag 与 conflict-related text 不会按项目作者的固定私人映射被静默改写。
 
 ## 通用安全底线
 
@@ -36,7 +36,7 @@ description: "Abide 长期记忆系统操作手册：工具参数、合法值、
 
 - `talk` 是完整的通用对话启动上下文。
 - `code` 依据 metadata 的工程/全局约束信息筛选；它不会改变 sealed、supersession 或事实真相规则。
-- `tg` 是紧凑 channel profile：包含使用者留言、delta、trigger、最新一封可见 letter、todos 与 pinned 启动索引；不包含 session 是 profile 设计，不是截断 bug。它不意味着 Abide 包含消息传输实现。
+- `tg` 是紧凑 channel profile：包含使用者留言、delta、trigger、最新一封可见 letter、todos 与 pinned 启动索引；不包含 session 是 profile 设计，不是截断 bug。它不意味着 Snows of Yesteryear 包含消息传输实现。
 - letter 常受预算限制；需要全文时使用 `get_letter(letter_id=...)`。
 
 **boot delta**：每个 profile 会报告自该 profile 上一次成功 `boot` checkpoint 后的新建、正文更新、todo 变化和 `superseded_by` 变化。首次无基线时会明确说明。只有一次 `boot` 真正成功完成后 checkpoint 才推进；失败不会吞掉 delta。sealed、deleted 与当前不可见内容不会经 delta 泄露。delta 有独立预算，超出时保留完整项目并提示未展开数量。三个 profile 的 checkpoint 相互独立；使用者留言的一次性投递生命周期则是全局的，切换 profile 不会重投同一条留言。
@@ -61,7 +61,7 @@ description: "Abide 长期记忆系统操作手册：工具参数、合法值、
 - **missing**：回退至最多 600 字符预览并提供截断透明度、bucket ID 和当前 `source_hash`。
 - **stale**：绝不继续使用旧 summary；同样回退预览并说明过期状态与新的 `source_hash`。
 
-处理 `missing` 或 `stale` 的流程：`dream(detail_ids="<bucket_id>")` 读取全文 → 按 `refresh_tg_summary` 的 tool description 中的 generation contract 生成 → `refresh_tg_summary(bucket_id, summary, source_hash)`。服务端会再次核对正文 hash；若生成期间正文已改变则拒绝写入并要求重新读取。Abide 不自行调用外部 LLM 生成 summary。这不是 destructive operation，不使用 destructive confirmation。
+处理 `missing` 或 `stale` 的流程：`dream(detail_ids="<bucket_id>")` 读取全文 → 按 `refresh_tg_summary` 的 tool description 中的 generation contract 生成 → `refresh_tg_summary(bucket_id, summary, source_hash)`。服务端会再次核对正文 hash；若生成期间正文已改变则拒绝写入并要求重新读取。Snows of Yesteryear 不自行调用外部 LLM 生成 summary。这不是 destructive operation，不使用 destructive confirmation。
 
 generation contract 由服务端 tool description 单一维护；不要在本手册复制其完整 prompt。边界是：忠实压缩当前原文、不得补充原文没有的信息、覆盖原文中有意义的分段核心、最多 1200 Unicode 字符；summary 正文不自行附加系统提示。`tg_summary` 不是新的事实来源。`talk` 与 `code` 不使用该 summary；当前没有 `code_summary`。
 
@@ -267,18 +267,18 @@ destructive 路径统一为 preview → `confirm_token`。`dry_run=True` 会报�
 - 归档后 session bucket 仍可修改：未 sealed 的可 `trace` 追加或修正；sealed 的正文修改被拒绝。
 - letter 使用稳定的三段结构：事件摘要、1–2 句第一人称情感锚点、下次注意。
 - 亲密或敏感内容优先 `sealed=True`；普通摘要与敏感细节分开存。
-- `topics` 采用稳定层级名，例如 `project/abide`、`project/integration`、`work/planning`、`person/communication`、`daily/wellbeing`、`study/topic`。它们是示例/约定，不是 schema 固定枚举；避免临时同义词导致 `topic_filter` 漏查而不报错。
+- `topics` 采用稳定层级名，例如 `project/snows-of-yesteryear`、`project/integration`、`work/planning`、`person/communication`、`daily/wellbeing`、`study/topic`。它们是示例/约定，不是 schema 固定枚举；避免临时同义词导致 `topic_filter` 漏查而不报错。
 
 ## 图片（Optional Remember-Me integration）
 
-Remember-Me 不是 Abide core，只有启用 asset/image 功能时才需要。它的 source 不 vendored；Abide 保留的是 adapter/presenter integration 与受限工具边界。
+Remember-Me 不是 Snows of Yesteryear core，只有启用 asset/image 功能时才需要。它的 source 不 vendored；Snows of Yesteryear 保留的是 adapter/presenter integration 与受限工具边界。
 
 工具：`rm_asset_upload_link`、`rm_asset_upload_status`、`rm_asset_get`、`rm_asset_search`（支持 `limit`、`offset`）、`rm_asset_view`（展示给当前使用者）、`rm_asset_inspect`（向模型提供图像内容）、`rm_asset_update_metadata`、`rm_asset_download_link`、`rm_asset_reindex_embeddings`。
 
 - 普通 MCP surface 不提供图片删除工具；若启用了 Dashboard，删除仅能走其受认证保护的 UI/API 路径。
 - 识别图像内容使用 `inspect`；向当前使用者展示使用 `view`；不要根据元数据猜测图像内容。
 - 不把图片 bytes 写入普通 memory，也不复制 Remember-Me blob。
-- 资产功能、viewer 与其 bundled third-party notices 是可选组件；不应让读者误以为 Abide core 启动依赖 Remember-Me。
+- 资产功能、viewer 与其 bundled third-party notices 是可选组件；不应让读者误以为 Snows of Yesteryear core 启动依赖 Remember-Me。
 
 ## 兼容性与已知边界
 
@@ -286,6 +286,6 @@ Remember-Me 不是 Abide core，只有启用 asset/image 功能时才需要。�
 - 只读工具仍可能有 activation 副作用：`dream` 与普通 `breath` surfacing 会更新有限的 activation metadata。报告“未改其他 bucket”时，区分内容/业务 metadata 与 activation touch。
 - 无法验证就明确说无法验证。`dream` 能显示 superseded 标记、successor 与 `superseded_at`，但不显示 raw `supersedes` frontmatter；不能用现有只读工具确认 reverse 列表时，不得猜测通过。
 - 旧会话可能缓存旧 schema。schema 变化后，在新会话重新发现工具；新会话仍缺字段时，再检查服务端是否加载了新代码。schema description 也可能遗漏行为细节，description 未提及不等于实现不存在。
-- 普通 portable export 是本地 CLI 能力，不是 LLM/MCP 工具能力。它不包含 sealed、embeddings、boot delta checkpoint 或 secrets；不得声称已通过 Abide MCP 工具完成导出。
+- 普通 portable export 是本地 CLI 能力，不是 LLM/MCP 工具能力。它不包含 sealed、embeddings、boot delta checkpoint 或 secrets；不得声称已通过 Snows of Yesteryear MCP 工具完成导出。
 - 当前没有 `suppression` / `include_suppressed` 能力。已有三层：dormant 不主动浮现、superseded 降权、sealed 隐藏。
 - diagnostics 是显式启用的开发/验收 profile；不要把 probe、base64 transport 实验或未承诺的诊断能力当成普通使用者能力。

@@ -1,4 +1,4 @@
-# Install and first run Abide
+# Install and first run Snows of Yesteryear
 
 This guide describes the currently verified **Minimal Mode** path: a local stdio MCP memory server with an empty external data directory. It does not configure Dashboard, HTTP, embeddings, Remember-Me, Telegram transport, or any provider key.
 
@@ -34,7 +34,7 @@ Minimal Mode has **zero mandatory environment variables**, but explicitly set a 
 
 ```text
 # POSIX/WSL example
-export OMBRE_BUCKETS_DIR=/path/to/abide-data
+export OMBRE_BUCKETS_DIR=/path/to/snows-of-yesteryear-data
 
 # Optional: stdio is already the current default, but declaring it is clear.
 export OMBRE_TRANSPORT=stdio
@@ -53,11 +53,11 @@ This process speaks MCP over stdin/stdout; it is not an interactive terminal UI.
 ```json
 {
   "mcpServers": {
-    "abide": {
-      "command": "/path/to/Abide/.venv/bin/python",
-      "args": ["/path/to/Abide/server.py"],
+    "snows-of-yesteryear": {
+      "command": "/path/to/Snows-of-Yesteryear/.venv/bin/python",
+      "args": ["/path/to/Snows-of-Yesteryear/server.py"],
       "env": {
-        "OMBRE_BUCKETS_DIR": "/path/to/abide-data",
+        "OMBRE_BUCKETS_DIR": "/path/to/snows-of-yesteryear-data",
         "OMBRE_TRANSPORT": "stdio"
       }
     }
@@ -72,7 +72,7 @@ Client configuration formats vary. The example is structural, not a claim that e
 Using the MCP client, write only synthetic test material:
 
 ```text
-hold(content="Abide first-run test memory", tags="project/abide", importance=5)
+hold(content="Snows of Yesteryear first-run test memory", tags="project/snows-of-yesteryear", importance=5)
 breath(query="first-run test memory", touch=False, mode="full")
 ```
 
@@ -110,7 +110,7 @@ Compatibility applies only to this optional integration:
 - ChatGPT: **NOT CURRENTLY SUPPORTED** — an earlier real connection encountered an undiagnosed compatibility problem.
 - Other MCP/LLM clients: **UNVERIFIED**
 
-Abide core is not limited to Claude by this integration boundary.
+Snows of Yesteryear core is not limited to Claude by this integration boundary.
 
 ## Optional components
 

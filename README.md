@@ -1,17 +1,17 @@
-# Abide / 长相守
+# Snows of Yesteryear / 旧日雪
 
-长相守（Abide）是在原版 P0luz/Ombre-Brain 基础上 fork 并持续二次开发形成的长期记忆系统；在后续设计与优化过程中参考过的其他项目，统一记录在 ACKNOWLEDGEMENTS.md 中。它把值得长期保留的内容存成可检查的 Markdown memory bucket，并在明确的来源、生命周期、隐私和变更边界内完成写入、检索、演化与会话接续。
+旧日雪（Snows of Yesteryear）是在原版 P0luz/Ombre-Brain 基础上 fork 并持续二次开发形成的长期记忆系统；在后续设计与优化过程中参考过的其他项目，统一记录在 ACKNOWLEDGEMENTS.md 中。它把值得长期保留的内容存成可检查的 Markdown memory bucket，并在明确的来源、生命周期、隐私和变更边界内完成写入、检索、演化与会话接续。
 
-长相守不是把聊天摘要简单地写入向量数据库。它同时关心：这条记忆从哪里来、是否已经过时、是否应该暂时沉底、谁能看到它、被修改前能否恢复，以及下一次对话应该怎样重新建立连续性。
+旧日雪不是把聊天摘要简单地写入向量数据库。它同时关心：这条记忆从哪里来、是否已经过时、是否应该暂时沉底、谁能看到它、被修改前能否恢复，以及下一次对话应该怎样重新建立连续性。
 
 核心运行不要求 Dashboard、embedding provider、Remember-Me、HTTP 或任何特定消息桥。最小路径是本地 stdio MCP 服务；其余能力按需启用。
 
-给 Claude、其他 LLM 或 MCP Agent 使用的完整操作手册见 docs/ABIDE_GUIDE.md，其中包含工具用法、参数边界、安全规则和当前已知限制。
+给 Claude、其他 LLM 或 MCP Agent 使用的完整操作手册见 docs/SNOWS_OF_YESTERYEAR_GUIDE.md，其中包含工具用法、参数边界、安全规则和当前已知限制。
 
 ## 目录
 
-- [长相守是什么](#长相守是什么)
-- [为什么做长相守](#为什么做长相守)
+- [旧日雪是什么](#旧日雪是什么)
+- [为什么做旧日雪](#为什么做旧日雪)
 - [功能总览](#功能总览)
 - [记忆模型](#记忆模型)
   - [Bucket 不是一条 vector record](#bucket-不是一条-vector-record)
@@ -45,19 +45,19 @@
 - [验证安装](#验证安装)
 - [进一步文档](#进一步文档)
 
-## 长相守是什么
+## 旧日雪是什么
 
-长相守为 MCP 客户端提供一个可持久化、可检索、可演化的记忆层。一个 memory bucket 通常包含一段正文、YAML metadata、来源分类、主题/标签、重要度、情感坐标、生命周期状态和关系指针。它可以表示事实、项目上下文、偏好、关系、未完成事项、会话摘要，也可以表示一次反思留下的 feel memory。
+旧日雪为 MCP 客户端提供一个可持久化、可检索、可演化的记忆层。一个 memory bucket 通常包含一段正文、YAML metadata、来源分类、主题/标签、重要度、情感坐标、生命周期状态和关系指针。它可以表示事实、项目上下文、偏好、关系、未完成事项、会话摘要，也可以表示一次反思留下的 feel memory。
 
 记忆以 Markdown 文件保存，metadata 与正文可以直接检查；历史、notes、letters、boot 增量 checkpoint、emotion timeline、embedding index 等辅助状态按功能保存在本地数据目录的 SQLite/JSON 支持文件中。数据目录可以放在 checkout 外，核心不依赖某个托管记忆服务。
 
-长相守还提供三类互补入口：
+旧日雪还提供三类互补入口：
 
 - MCP：面向模型和自动化工作流的主要接口，默认使用本地 stdio。
 - Dashboard：可选的认证浏览器界面，用于浏览、搜索、编辑和维护。
 - Remember-Me integration：可选的外部图片/资产记忆集成，不是核心 bucket 存储的替代品。
 
-## 为什么做长相守
+## 为什么做旧日雪
 
 常见的“向量记忆”流程可以概括为：写进去 → 生成 embedding → 搜出来。这个流程擅长相似度，却不自动解决长期记忆里的其他问题：
 
@@ -68,7 +68,7 @@
 - 一次错误的 merge 或 delete 不应直接毁掉长期积累。
 - 新会话需要的是有边界的接续：知道什么值得带入、哪些变化尚未消费，而不是恢复整段旧上下文。
 
-长相守因此把存储、来源、生命周期、事实演化、破坏性操作安全和连续性组合在同一套模型里。它不替模型做最终判断：相似提醒不会自动 merge，冲突检测不会自动决定哪个事实为真，feel 提示也不会强迫产生新记忆。
+旧日雪因此把存储、来源、生命周期、事实演化、破坏性操作安全和连续性组合在同一套模型里。它不替模型做最终判断：相似提醒不会自动 merge，冲突检测不会自动决定哪个事实为真，feel 提示也不会强迫产生新记忆。
 
 ## 功能总览
 
@@ -122,7 +122,7 @@ feel memory 是专门的情感/反思记录。它可以通过 hold(feel=True, so
 
 ## 生命周期与遗忘
 
-长相守把“保存”与“永远主动出现”分开。记忆的活跃程度由 activation、最近活动时间、重要度、情感坐标、resolved/digested 状态和保护状态共同影响。
+旧日雪把“保存”与“永远主动出现”分开。记忆的活跃程度由 activation、最近活动时间、重要度、情感坐标、resolved/digested 状态和保护状态共同影响。
 
 ### 从活跃到沉底
 
@@ -215,7 +215,7 @@ as_of 有明确边界：
 
 ### Supersession：事实会变化
 
-长期记忆不是静态事实库。同一事实发生变化时，长相守同时保留“曾经如此”和“当前应当如此”的关系，而不是静默覆盖所有历史。
+长期记忆不是静态事实库。同一事实发生变化时，旧日雪同时保留“曾经如此”和“当前应当如此”的关系，而不是静默覆盖所有历史。
 
 - hold(supersedes_id=...)：同一 bucket 原地演化，bucket ID 不变；旧正文进入 history，只改正文，不自动改 tags、importance 或 pinned。
 - trace(superseded_by=...)：跨 bucket 建立取代关系。旧 bucket 保留并可被检索，但检索权重降为原来的约 0.1，并显示 successor。
@@ -258,7 +258,7 @@ sealed bucket 的正文修改默认拒绝，protected bucket 的删除、正文�
 
 ## Todo 与来源
 
-长相守同时兼容旧的 todos: list[str] 和带出处的 todo_items。后者的每一项可以包含：
+旧日雪同时兼容旧的 todos: list[str] 和带出处的 todo_items。后者的每一项可以包含：
 
 - text
 - said_by
@@ -273,7 +273,7 @@ todo 的单项完成和整个 bucket resolved 是两件事；未完成 todo 会�
 
 ## 会话接续
 
-长相守的连续性不是把完整历史重新塞回新上下文，而是每次开窗口时重新组合一份有预算、有来源、有状态的入口。boot 会从持久化记忆中组合：
+旧日雪的连续性不是把完整历史重新塞回新上下文，而是每次开窗口时重新组合一份有预算、有来源、有状态的入口。boot 会从持久化记忆中组合：
 
 - 当前 profile 允许的 pinned/protected context；
 - 到期的 trigger；
@@ -321,7 +321,7 @@ letter 不是普通 bucket，也不是 note：它表达的是一次会话结束�
 
 ### Triggers：prospective memory
 
-hold(trigger_date="YYYY-MM-DD") 为记忆设置到期日期。到期记忆会在 boot 的 trigger section 中浮现，并记录 trigger_last_seen，而不会变成外部通知任务。它依赖下一次 boot 才能被看见；长相守本身不承诺操作系统通知、消息推送或独立 scheduler。
+hold(trigger_date="YYYY-MM-DD") 为记忆设置到期日期。到期记忆会在 boot 的 trigger section 中浮现，并记录 trigger_last_seen，而不会变成外部通知任务。它依赖下一次 boot 才能被看见；旧日雪本身不承诺操作系统通知、消息推送或独立 scheduler。
 
 ## Session Archive
 
@@ -411,13 +411,13 @@ portable_export.py 提供 ordinary portable export CLI，而不是 MCP tool。�
 
 ### 高级 backup authority
 
-GitHub/OIDC backup 是可选的 operator surface，不是普通 MCP workflow。authority 必须通过显式 OMBRE_BACKUP_REPOSITORY 配置；缺失、格式错误、repository/ref/workflow/event 不匹配都会 fail closed。它不绑定 peanutsuee/Abide，也不绑定任何未显式配置的仓库。
+GitHub/OIDC backup 是可选的 operator surface，不是普通 MCP workflow。authority 必须通过显式 OMBRE_BACKUP_REPOSITORY 配置；缺失、格式错误、repository/ref/workflow/event 不匹配都会 fail closed。它不绑定 peanutsuee/Snows-of-Yesteryear，也不绑定任何未显式配置的仓库。
 
 当前还包含独立的加密、offline-quiesced backup bundle/restore 路径，要求 operator 提供独立 workspace、收件公钥/指纹、OIDC 约束和运行限制。restore 会先验证 bundle，再发布到新的目标 root，不替换正在运行的 live root。它们都不进入 Minimal Mode，也不应写进普通使用者的 MCP 配置示例。
 
 ## Embedding 与外部模型能力
 
-embedding 是可选的。没有 embedding key 或 provider 时，Abide core 仍可以用 Markdown bucket、lexical/fuzzy retrieval、hold、trace、boot 和其他核心工具运行。
+embedding 是可选的。没有 embedding key 或 provider 时，Snows of Yesteryear core 仍可以用 Markdown bucket、lexical/fuzzy retrieval、hold、trace、boot 和其他核心工具运行。
 
 启用后，embedding index 存在数据目录中，主要用于：
 
@@ -434,13 +434,13 @@ embedding 是可选的。没有 embedding key 或 provider 时，Abide core 仍�
 
 ## Remember-Me 图片记忆
 
-Remember-Me 是长相守的可选 external integration，用来保存与检索经过隐私清理的图片/资产；它不是 Abide core 的 bucket storage，也不是普通 memory 的隐式附件层。
+Remember-Me 是旧日雪的可选 external integration，用来保存与检索经过隐私清理的图片/资产；它不是 Snows of Yesteryear core 的 bucket storage，也不是普通 memory 的隐式附件层。
 
 它的 source 不 vendored。只有明确启用 asset/image integration 时，才安装 requirements-remember-me.txt，并给它独立的数据根目录。核心启动、普通 Markdown 记忆、breath、boot 和最小 stdio 路径都不要求 Remember-Me。
 
 ### 当前兼容边界
 
-下列状态只针对 Remember-Me integration，不是 Abide core MCP 的客户端限制：
+下列状态只针对 Remember-Me integration，不是 Snows of Yesteryear core MCP 的客户端限制：
 
 - Claude：**SUPPORTED / TESTED**
 - ChatGPT：**NOT CURRENTLY SUPPORTED**。曾有一次真实连接，但出现了尚未诊断的兼容问题；不猜测原因，也不声称当前可用。
@@ -460,7 +460,7 @@ Remember-Me 是长相守的可选 external integration，用来保存与检索�
 - 通过 content-addressed storage 保存清理后的内容，并在适用路径执行 metadata stripping；
 - 在 Dashboard 图片库中分页、筛选、上传、查看、编辑 metadata、下载和执行认证后的资产管理操作。
 
-普通 MCP surface 没有 asset delete tool；图片删除属于受认证的 Dashboard/API 资产管理边界。Remember-Me 的 blob authority 与 Abide ordinary portable export 分开，不能把二者当作同一份备份。
+普通 MCP surface 没有 asset delete tool；图片删除属于受认证的 Dashboard/API 资产管理边界。Remember-Me 的 blob authority 与 Snows of Yesteryear ordinary portable export 分开，不能把二者当作同一份备份。
 
 ## MCP 工具
 
@@ -504,7 +504,7 @@ Remember-Me 是长相守的可选 external integration，用来保存与检索�
 - remember-me-asset-viewer resource：用于 inline 展示单个已清理 Remember-Me 图片。
 - start_ombre_brain prompt：可选 onboarding guidance；不支持 MCP prompt 的客户端仍可直接使用 tools。
 
-精确的参数、类型、默认值、枚举和 schema 以运行中的 MCP discovery 为准；行为与安全说明集中在 [docs/ABIDE_GUIDE.md](docs/ABIDE_GUIDE.md)。README 不复制完整 JSON schema。
+精确的参数、类型、默认值、枚举和 schema 以运行中的 MCP discovery 为准；行为与安全说明集中在 [docs/SNOWS_OF_YESTERYEAR_GUIDE.md](docs/SNOWS_OF_YESTERYEAR_GUIDE.md)。README 不复制完整 JSON schema。
 
 ## 系统架构
 
@@ -516,7 +516,7 @@ Remember-Me 是长相守的可选 external integration，用来保存与检索�
                            │ MCP tools / resource / prompt
                            ▼
 ┌──────────────────────────────────────────────────────────┐
-│ Abide MCP Server                                         │
+│ Snows of Yesteryear MCP Server                           │
 │  boot / breath / hold / grow / trace / maintenance       │
 │  notes / letters / session archive / safety boundaries    │
 └──────────────┬───────────────────┬───────────────────────┘
@@ -562,7 +562,7 @@ Remember-Me 是长相守的可选 external integration，用来保存与检索�
 
 ### Raw Evidence 的公开边界
 
-Raw Evidence 源码随 Abide 开源，但它不是普通用户功能。它默认关闭，当前没有普通 Dashboard 浏览器、普通 MCP tool、Breath/recall、embedding、boot、Dream 或 model-context surface。它与普通 memory bucket、Remember-Me asset authority 和 portable export 分开；不要在普通安装或 Quick Start 中配置它，也不要将 preserve_raw 理解为 Raw Evidence。
+Raw Evidence 源码随 Snows of Yesteryear 开源，但它不是普通用户功能。它默认关闭，当前没有普通 Dashboard 浏览器、普通 MCP tool、Breath/recall、embedding、boot、Dream 或 model-context surface。它与普通 memory bucket、Remember-Me asset authority 和 portable export 分开；不要在普通安装或 Quick Start 中配置它，也不要将 preserve_raw 理解为 Raw Evidence。
 
 ### Diagnostics
 
@@ -586,22 +586,22 @@ Raw Evidence 源码随 Abide 开源，但它不是普通用户功能。它默认
 
 - 当前 clean-install 只验证了 WSL、Python 3.12.14、新建 virtualenv、仅安装 requirements.txt、无 .env、无 API key、无 Remember-Me、外置空数据目录、stdio MCP、一次 hold/breath 和重启后持久化。不要据此声称 Windows、macOS 或所有 Python/客户端都已 clean-install 验证。
 - HTTP Full Mode 不是最短路径，也不是当前 clean-install-ready 发行模式：当前 bind 是 0.0.0.0，Uvicorn 不是 core 的 direct dependency。
-- Remember-Me 的 ChatGPT 兼容性目前不支持且原因未诊断；其他非 Claude MCP/LLM client 仍未验证。这个限制不适用于 Abide core MCP。
+- Remember-Me 的 ChatGPT 兼容性目前不支持且原因未诊断；其他非 Claude MCP/LLM client 仍未验证。这个限制不适用于 Snows of Yesteryear core MCP。
 - as_of 只能读取仍存在、当前可见 bucket 的历史正文；不提供完整历史 metadata、deleted bucket reconstruction 或 historical semantic search。
 - code profile 目前没有 tg 那样完整的逐项截断透明度；不要把机械预算截断解释成完整上下文接续。
-- tg 是 profile，不是 Telegram bridge；长相守不包含私人消息传输实现。
+- tg 是 profile，不是 Telegram bridge；旧日雪不包含私人消息传输实现。
 - 普通 portable export 不含 sealed/RM external authority/Raw Evidence/secret/config 等完整恢复材料；它不是 disaster recovery。
 - 没有 suppression / include_suppressed 这一额外状态。当前可见性主要由 dormant（不主动浮现）、superseded（降权）和 sealed（隐藏）三层组成。
 - 仓库没有把完整 MCP JSON contract 作为单独静态 README 复制品；schema 由当前 MCP 注册生成，参数精度应以运行时 discovery 和操作手册为准。
 
 ## License、来源与致谢
 
-- Abide 自有及修改后的 Covered Code：[CPAL-1.0](LICENSE)
+- Snows of Yesteryear 自有及修改后的 Covered Code：[CPAL-1.0](LICENSE)
 - 上游 MIT attribution 与 notice：[NOTICE.md](NOTICE.md)
 - 第三方代码与运行时说明：[THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)
 - 设计与研究致谢：[ACKNOWLEDGEMENTS.md](ACKNOWLEDGEMENTS.md)
 
-公开身份是 **Ting (peanutsuee)**。Abide 的代码 lineage 包含并衍生自 [P0luz/Ombre-Brain](https://github.com/P0luz/Ombre-Brain) 的适用部分；这些部分保留其 MIT copyright 和 permission notice。Haven-Ombre 只属于 design provenance，不是 Abide 的代码来源。
+公开身份是 **Ting (peanutsuee)**。Snows of Yesteryear 的代码 lineage 包含并衍生自 [P0luz/Ombre-Brain](https://github.com/P0luz/Ombre-Brain) 的适用部分；这些部分保留其 MIT copyright 和 permission notice。Haven-Ombre 只属于 design provenance，不是 Snows of Yesteryear 的代码来源。
 
 ## 安装与快速开始
 
@@ -612,13 +612,13 @@ Raw Evidence 源码随 Abide 开源，但它不是普通用户功能。它默认
 Minimal Mode 的强制环境变量数量是 **0**。仍然强烈建议显式设置 OMBRE_BUCKETS_DIR 到 checkout 外的可写目录，以免运行时 fallback 在源码目录创建 ./buckets。
 
 ~~~bash
-git clone https://github.com/peanutsuee/Abide.git
-cd Abide
+git clone https://github.com/peanutsuee/Snows-of-Yesteryear.git
+cd Snows-of-Yesteryear
 
 python3.12 -m venv .venv
 .venv/bin/python -m pip install -r requirements.txt
 
-export OMBRE_BUCKETS_DIR=/path/to/abide-data
+export OMBRE_BUCKETS_DIR=/path/to/snows-of-yesteryear-data
 export OMBRE_TRANSPORT=stdio
 
 .venv/bin/python server.py
@@ -654,12 +654,12 @@ config.example.yaml 仍可帮助理解较完整的运行参数，但环境变量
 ~~~json
 {
   "mcpServers": {
-    "abide": {
-      "command": "/path/to/Abide/.venv/bin/python",
-      "args": ["/path/to/Abide/server.py"],
+    "snows-of-yesteryear": {
+      "command": "/path/to/Snows-of-Yesteryear/.venv/bin/python",
+      "args": ["/path/to/Snows-of-Yesteryear/server.py"],
       "env": {
         "OMBRE_TRANSPORT": "stdio",
-        "OMBRE_BUCKETS_DIR": "/path/to/abide-data"
+        "OMBRE_BUCKETS_DIR": "/path/to/snows-of-yesteryear-data"
       }
     }
   }
@@ -674,8 +674,8 @@ stdio 进程通过 stdin/stdout 说 MCP，不是交互式终端 UI。客户端�
 
 ~~~text
 hold(
-  content="Abide first-run test memory",
-  tags="project/abide",
+  content="Snows of Yesteryear first-run test memory",
+  tags="project/snows-of-yesteryear",
   importance=5
 )
 
@@ -692,7 +692,7 @@ breath(
 
 ## 进一步文档
 
-- [Abide 操作手册](docs/ABIDE_GUIDE.md)：当前工具行为、参数边界、sealed、provenance、supersession、维护和已知限制。
+- [Snows of Yesteryear 操作手册](docs/SNOWS_OF_YESTERYEAR_GUIDE.md)：当前工具行为、参数边界、sealed、provenance、supersession、维护和已知限制。
 - [安装与首次运行](docs/INSTALLATION.md)：Minimal Mode、可选组件和 HTTP 限制。
 - [Remember-Me integration](docs/remember-me-integration.md)：外部依赖、启用边界和兼容性状态。
 - [安全政策](SECURITY.md)：数据目录、HTTP/Dashboard、密钥、Raw Evidence 和 backup authority 的安全边界。

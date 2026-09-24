@@ -1,6 +1,6 @@
 # Remember-Me integration
 
-Remember-Me is an optional external runtime integration. It is not vendored into Abide and is not required for Minimal Mode.
+Remember-Me is an optional external runtime integration. It is not vendored into Snows of Yesteryear and is not required for Minimal Mode.
 
 Install it only when enabling the asset/image integration:
 
@@ -12,4 +12,4 @@ The optional requirements file pins the public `peanutsuee/Remember-Me` release 
 
 The integration remains disabled unless explicitly enabled by its documented runtime setting and given its own data root. Its client compatibility status applies only to this optional integration: Claude is supported/tested; ChatGPT is not currently supported because a prior compatibility issue remains undiagnosed; other MCP/LLM clients are unverified.
 
-Remember-Me is separately licensed and governed by its own notices. See Abide's `NOTICE.md` and `THIRD_PARTY_NOTICES.md` for distribution attribution.
+Remember-Me is separately licensed and governed by its own notices. See Snows of Yesteryear's `NOTICE.md` and `THIRD_PARTY_NOTICES.md` for distribution attribution.

@@ -1,8 +1,8 @@
-# Security policy for Abide
+# Security policy for Snows of Yesteryear
 
 ## Scope
 
-Abide stores durable memory and may be configured with provider credentials, HTTP access, optional Dashboard authentication, and optional Remember-Me asset integration. Treat its data directory and configuration as sensitive local state.
+Snows of Yesteryear stores durable memory and may be configured with provider credentials, HTTP access, optional Dashboard authentication, and optional Remember-Me asset integration. Treat its data directory and configuration as sensitive local state.
 
 ## Secrets and local configuration
 
@@ -32,7 +32,7 @@ The shortest supported path is local stdio MCP. Do not expose a memory service t
 
 ## Optional Remember-Me integration
 
-Remember-Me is separately installed and separately licensed. Do not enable it without a distinct data root and a deliberate review of its deployment and attribution obligations. The optional integration's client compatibility status must not be treated as an Abide-core client restriction.
+Remember-Me is separately installed and separately licensed. Do not enable it without a distinct data root and a deliberate review of its deployment and attribution obligations. The optional integration's client compatibility status must not be treated as the Snows of Yesteryear core client restriction.
 
 ## Internal operator-only Raw Evidence boundary
 

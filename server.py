@@ -325,7 +325,7 @@ async def _fire_webhook(event: str, payload: dict) -> None:
 # host="0.0.0.0" so Docker container's SSE is externally reachable
 # stdio mode ignores host (no network)
 mcp = FastMCP(
-    "Ombre Brain",
+    "Snows of Yesteryear",
     host="0.0.0.0",
     port=OMBRE_PORT,
 )

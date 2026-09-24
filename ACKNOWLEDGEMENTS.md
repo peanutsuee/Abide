@@ -1,14 +1,14 @@
-# Abide Acknowledgements — Release Candidate
+# Snows of Yesteryear Acknowledgements — Release Candidate
 
-This document records design and research acknowledgement. It is not a statement that the projects below contributed code, jointly developed Abide, or impose their licenses on Abide.
+This document records design and research acknowledgement. It is not a statement that the projects below contributed code, jointly developed Snows of Yesteryear, or impose their licenses on Snows of Yesteryear.
 
 ## Haven-Ombre
 
 Repository: https://github.com/Yinglianchun/Haven-Ombre
 
-Abide's design discussions were informed by research into Raw Events / Evidence Layer thinking, Memory Layer Contract ideas, recall explainability, and compact continuity / handoff composition.
+Snows of Yesteryear's design discussions were informed by research into Raw Events / Evidence Layer thinking, Memory Layer Contract ideas, recall explainability, and compact continuity / handoff composition.
 
-No Haven-Ombre implementation was found in Abide's source lineage.
+No Haven-Ombre implementation was found in Snows of Yesteryear's source lineage.
 
 ## lmc-5
 
